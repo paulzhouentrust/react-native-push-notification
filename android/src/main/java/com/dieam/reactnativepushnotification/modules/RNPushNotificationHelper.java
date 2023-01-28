@@ -520,7 +520,7 @@ public class RNPushNotificationHelper {
                     }
 
 
-                    Intent actionIntent = new Intent(context, RNPushNotificationActions.class);
+                    Intent actionIntent = new Intent(context, intentClass);
                     actionIntent.setAction(packageName + ".ACTION_" + i);
 
                     actionIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -535,7 +535,8 @@ public class RNPushNotificationHelper {
 
                     int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
 
-                    PendingIntent pendingActionIntent = PendingIntent.getBroadcast(context, notificationID, actionIntent, flags);
+                    PendingIntent pendingActionIntent =PendingIntent.getActivity(context, notificationID, actionIntent,
+                            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT);
 
                     if(action.equals("ReplyInput")){
                         //Action with inline reply
